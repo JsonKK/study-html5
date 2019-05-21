@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script>
+ //获取指定form中的所有的<input>对象    
+function getElements(formId) {    
+    var form = document.getElementById(formId);    
+    var elements = new Array();    
+    var tagElements = form.getElementsByTagName('input');    
+    for (var j = 0; j < tagElements.length; j++){  
+         elements.push(tagElements[j]);  
+  
+    }  
+    return elements;    
+}   
+  
+//获取单个input中的【name,value】数组  
+function inputSelector(element) {    
+  if (element.checked)    
+     return [element.name, element.value];    
+}    
+      
+function input(element) {    
+    switch (element.type.toLowerCase()) {    
+      case 'submit':    
+      case 'hidden':    
+      case 'password':    
+      case 'text':    
+        return [element.name, element.value];    
+      case 'checkbox':    
+      case 'radio':    
+        return inputSelector(element);    
+    }    
+    return false;    
+}    
+  
+//组合URL  
+function serializeElement(element) {    
+    var method = element.tagName.toLowerCase();    
+    var parameter = input(element);    
+    
+    if (parameter) {    
+      var key = encodeURIComponent(parameter[0]);    
+      if (key.length == 0) return;    
+    
+      if (parameter[1].constructor != Array)    
+        parameter[1] = [parameter[1]];    
+          
+      var values = parameter[1];    
+      var results = [];    
+      for (var i=0; i<values.length; i++) {    
+        results.push(key + '=' + encodeURIComponent(values[i]));    
+      }    
+      return results.join('&');    
+    }    
+ }    
+  
+//调用方法     
+function serializeForm(formId) {    
+    var elements = getElements(formId);    
+    var queryComponents = new Array();    
+    
+    for (var i = 0; i < elements.length; i++) {    
+      var queryComponent = serializeElement(elements[i]);    
+      if (queryComponent)    
+        queryComponents.push(queryComponent);    
+    }    
+    
+    return queryComponents.join('&');  
+}    
+
+ function getFormInfo(){  
+    var params = serializeForm('login');  
+    alert(params);  
+} 
+</script>
+</head>
+<body>
+<!-- 表单 -->
+<form id="login" name="login">
+姓：<input type="text" name="lname"><br>
+名：<input type="text" name="fname"><br>
+<button type="button" onclick="getFormInfo()"> 提交</button>
+</form>
+<p>函数 checkForm() 在提交按钮被点击时触发。此函数向用户显示一段消息。</p>
+
+text:<input type="text" name="greeting" list="greetings" autocomplete="on" />
+<datalist id="greetings" style="display: none;">
+	<option value="Good Morning">Good Morning</option>
+	<option value="Hello">Hello</option>
+	<option value="Good Afternoon">Good Afternoon</option>
+</datalist>
+
+<!-- 进度条 -->
+<script type="text/javascript">
+	var progressBar = document.getElementById('progress');
+	function progress_button(){
+		var progressBar = document.getElementById('progress');
+		progress.getElementsByTagName('span')[0].textContent = '0';
+		for(var i=0;i<=100;i++){
+			setTimeout(function(x){
+				updateProgress(x);
+			},500*(i+1),i+1);
+		}
+			
+			
+	}
+	function updateProgress(newValue){
+		if(progress){
+			progress.value = newValue;
+			progress.getElementsByTagName('span')[0].text = newValue;
+		}
+		
+	}
+</script>
+<section>
+	<h2>progress的元素使用</h2>
+	<p>完成百分比：<progress id="progress" value="0" max="100"><span>0</span>%</progress></p>
+	<input type="button" onclick="progress_button()" value="点击">
+</section>
+
+<!-- 上传组件 -->
+<script type="text/javascript">
+	function showFileName(){
+		var file;
+		var files = document.getElementById('file').files;
+		for(var i=0;i<files.length;i++){
+			file = files[i];
+			console.log(file.name);
+			if(typeof FileReader != 'undefined'){
+				var reader = new FileReader();
+				if(/^image\/.*$/i.test(file.type)){
+					reader.readAsDataURL(files.item(i));
+					reader.onload = function(e){
+						var result = document.getElementById('result');
+						document.getElementById('myImg').src = this.result;
+					};
+				}else{
+					reader.readAsBinaryString(files.item(i));
+					reader.onload = function(e){
+						var result = document.getElementById('result');
+						result.innerHTML = this.result.toString(2);
+					};
+				}
+				
+				
+			}
+			
+		}
+	}
+ 	function changImg(e){  
+        for (var i = 0; i < e.target.files.length; i++) {  
+            var file = e.target.files.item(i); 
+            //正则表达式判断文件类型是否为图片
+            while (!(/^image\/.*$/i.test(file.type))) {              	
+                  
+                alert('不是图片');
+                break;//不是图片 就跳出这一次循环
+            }  
+            //实例化FileReader 
+            var freader = new FileReader(); 
+            //FileReader对象的readAsDataURL方法可以将读取到的文件编码成Data URL
+            //readAsDataURL方法会使用base-64进行编码
+            //编码的资料由data字串开始，后面跟随的是MIME type，然后再加上base64字串，逗号之后就是编码过的图像文件的内容。
+            freader.readAsDataURL(file);  
+            freader.onload = function(e) { 
+            	//更改img的src属性
+
+                console.log(e.target.result);
+            }  
+        }  
+    }
+</script>
+<input type="file" id="file" multiple="true" size="80" />
+<input type="button" onclick="showFileName()" value="文件上传" name="" />
+<div id="result" name="result">
+
+<!-- 图片显是 -->
+<img alt="暂无图片" id="myImg"  height="200px" width="200px">  	
+</div>
+</body>
+</html>
