@@ -1,15 +1,18 @@
 <template>
   <div id="app">
     <basic></basic>
+    <clock></clock>
   </div>
 </template>
 
 <script>
 import basic from '../components/basic'
+import clock from '../components/clock'
 export default {
   name: 'app',
   components:{
-    basic
+    basic,
+    clock
   },
   data () {
     return {
