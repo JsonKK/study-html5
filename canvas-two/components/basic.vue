@@ -38,7 +38,7 @@ export default {
 };
 </script>
  
-<style scope>
+<style scoped>
 #basic{
     background-color: #ddd;
 }

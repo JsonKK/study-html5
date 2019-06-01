@@ -1,24 +1,15 @@
 <template>
   <div id="app">
-    <!-- <basic></basic> -->
-    <!-- <clock></clock> -->
-    <!-- <ball></ball> -->
-    <rectangle></rectangle>
+    <chart-line></chart-line>
   </div>
 </template>
 
 <script>
-import basic from '../components/basic'
-import clock from '../components/clock'
-import ball from '../components/ball'
-import rectangle from '../components/rectangle'
+import chartLine from './components/line'
 export default {
   name: 'app',
   components:{
-    basic,
-    clock,
-    ball,
-    rectangle
+    chartLine
   },
   data () {
     return {

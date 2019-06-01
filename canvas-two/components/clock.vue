@@ -1,6 +1,14 @@
 <template>
     <div id="clock">
-        <canvas id="canvas" ref="canvas" width="300" height="300"></canvas>
+        <div class="clock-box">
+            <canvas class="clock-content" id="canvas" ref="canvas" width="300" height="300"></canvas>
+            <img class="img-content" :src="imgSrc" alt="" width="300" height="300" />
+            <div class="row">
+                <button @click="eventClock">{{isImg?'返回画布':'时钟快照'}}</button>
+            </div>
+            
+        </div>
+        
     </div>
 </template>
  
@@ -10,19 +18,34 @@ export default {
     props: {},
     components: {},
     data() {
-        return {};
+        return {
+            imgSrc:'',
+            isImg:false,
+            loop:''
+        };
     },
     mounted() {
         this.renderClock();
-        this.eventClock();
     },
     computed: {},
     methods: {
         eventClock(){
-            let canvas = this.$refs.canvas;
-            canvas.addEventListener('mousedown',function(e){
-                let v = e;
-            });
+            let canvas = this.$refs.canvas,
+                imgSrc = this.imgSrc,
+                isImg = this.isImg,
+                loop = this.loop,
+                dataUrl;
+            if(!isImg){
+                dataUrl = canvas.toDataURL('image/png');
+                clearInterval(loop);
+                this.imgSrc = dataUrl;
+                this.isImg = true;
+            }
+            else{
+                this.imgSrc = '';
+                this.isImg = false;
+                this.renderClock();
+            }
         },
         renderClock(){
             let canvas = this.$refs.canvas,
@@ -33,8 +56,8 @@ export default {
                 hourt_hand_truncation = canvas.width/10,
                 number_space = 10,
                 radius = canvas.width/2-margin,
-                hand_radius = radius + number_space;
-
+                hand_radius = radius + number_space,
+                that = this;
             function drawCircle(){
                 context.beginPath();
                 context.arc(canvas.width/2,canvas.height/2,radius,0,Math.PI*2,true);
@@ -83,10 +106,12 @@ export default {
                 drawCenter();
                 drawHands();
                 drawNumerals();
+                // that.imgSrc = canvas.toDataURL();
             }
             
             context.font = font_height + 'px Arial';
-            let loop = setInterval(drawClock,1000);
+            drawClock();
+            this.loop = setInterval(drawClock,1000);
             
         }
     },
@@ -95,5 +120,21 @@ export default {
 };
 </script>
  
-<style></style>
+<style>
+.clock-box{
+    position: absolute;
+    left: 10px;
+    top: 200px;
+    
+}
+.clock-content{
+    border: none;
+    /* display: none; */
+}
+.img-content{
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+</style>
  
