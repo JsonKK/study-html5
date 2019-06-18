@@ -5,6 +5,7 @@
         <base-canvas-one></base-canvas-one>
         <!-- <base-canvas-two></base-canvas-two> -->
         <base-geolocation></base-geolocation>
+        <base-geolocation-two></base-geolocation-two>
     </div>
 </template>
 
@@ -15,6 +16,7 @@ import baseCanvasOne from '../components/base-canvas-one'
 import baseCanvasTwo from '../components/base-canvas-two'
 import baseCanvasThree from '../components/base-canvas-Three'
 import baseGeolocation from '../components/base-geolocation'
+import baseGeolocationTwo from '../components/base-geolocation-two'
 export default {
     name: 'app',
     components: {
@@ -23,7 +25,8 @@ export default {
         baseCanvasOne,
         baseCanvasTwo,
 		baseCanvasThree,
-		baseGeolocation
+		baseGeolocation,
+		baseGeolocationTwo
     },
     data() {
         return {
