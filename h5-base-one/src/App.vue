@@ -4,8 +4,9 @@
         <base-event></base-event>
         <base-canvas-one></base-canvas-one>
         <!-- <base-canvas-two></base-canvas-two> -->
-        <base-geolocation></base-geolocation>
+        <!-- <base-geolocation></base-geolocation> -->
         <base-geolocation-two></base-geolocation-two>
+		<base-Postmessage></base-Postmessage>
     </div>
 </template>
 
@@ -17,6 +18,7 @@ import baseCanvasTwo from '../components/base-canvas-two'
 import baseCanvasThree from '../components/base-canvas-Three'
 import baseGeolocation from '../components/base-geolocation'
 import baseGeolocationTwo from '../components/base-geolocation-two'
+import basePostmessage from '../components/base-Postmessage'
 export default {
     name: 'app',
     components: {
@@ -26,7 +28,8 @@ export default {
         baseCanvasTwo,
 		baseCanvasThree,
 		baseGeolocation,
-		baseGeolocationTwo
+		baseGeolocationTwo,
+		basePostmessage
     },
     data() {
         return {

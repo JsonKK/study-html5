@@ -60,9 +60,6 @@ export default {
             let {timestamp} = this;
             if(timestamp>0){
                 this.timestampStr = (new Date().getTime() - timestamp).toString();
-                console.log(new Date().getTime() + 'new');
-                console.log(timestamp+ 'old');
-                console.log(new Date().getTime() - timestamp);
             }
             else{
                 this.timestamp = new Date().getTime();
