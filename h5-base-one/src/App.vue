@@ -5,8 +5,9 @@
         <base-canvas-one></base-canvas-one>
         <!-- <base-canvas-two></base-canvas-two> -->
         <!-- <base-geolocation></base-geolocation> -->
-        <base-geolocation-two></base-geolocation-two>
-		<base-Postmessage></base-Postmessage>
+        <!-- <base-geolocation-two></base-geolocation-two>
+		<base-Postmessage></base-Postmessage> -->
+        <base-form></base-form>
     </div>
 </template>
 
@@ -19,6 +20,7 @@ import baseCanvasThree from '../components/base-canvas-Three'
 import baseGeolocation from '../components/base-geolocation'
 import baseGeolocationTwo from '../components/base-geolocation-two'
 import basePostmessage from '../components/base-Postmessage'
+import baseForm from '../components/base-form'
 export default {
     name: 'app',
     components: {
@@ -29,7 +31,8 @@ export default {
 		baseCanvasThree,
 		baseGeolocation,
 		baseGeolocationTwo,
-		basePostmessage
+        basePostmessage,
+        baseForm
     },
     data() {
         return {
